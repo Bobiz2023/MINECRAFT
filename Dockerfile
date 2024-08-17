@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
 # Install dependencies
-RUN apt-get update && apt-get install -y curl unzip libcurl4 libssl1.0.0
+RUN apt-get update && apt-get install -y curl unzip libcurl4
 
 # Set working directory
 WORKDIR /bedrock
