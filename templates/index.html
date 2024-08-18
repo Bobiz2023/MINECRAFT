@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم سيرفر Minecraft</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>لوحة تحكم سيرفر Minecraft Bedrock</h1>
+    <p>حالة السيرفر: <span id="server-status">{{ status }}</span></p>
+    <p>عنوان الـ IP العام: <span id="ip-address">{{ ip_address }}</span></p>
+    <button onclick="controlServer('start')">تشغيل السيرفر</button>
+    <button onclick="controlServer('stop')">إيقاف السيرفر</button>
+    <button onclick="controlServer('restart')">إعادة تشغيل السيرفر</button>
+
+    <script>
+        function controlServer(action) {
+            fetch('/' + action)
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.status);
+                    updateStatus();
+                });
+        }
+
+        function updateStatus() {
+            fetch('/status')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('server-status').textContent = data.status;
+                });
+        }
+
+        // تحديث الحالة بشكل دوري
+        setInterval(updateStatus, 5000);
+    </script>
+</body>
+</html>
